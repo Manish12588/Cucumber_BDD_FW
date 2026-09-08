@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 
- * @author naveenautomationlabs
+ * @author Manish Kumar
  *
  */
 public class ElementUtil {
@@ -28,7 +28,7 @@ public class ElementUtil {
 
 	private void nullCheck(String value) {
 		if (value == null) {
-			throw new ElementException("VALUE IS NULL" + value);
+			throw new ElementException("VALUE IS NULL");
 		}
 	}
 	
@@ -66,9 +66,7 @@ public class ElementUtil {
 			highlightElement(element);
 			return element;
 		} catch (NoSuchElementException e) {
-			System.out.println("Element is not present on the page..." + locator);
-			e.printStackTrace();
-			return null;
+			throw new ElementException("Element is not present on the page: " + locator);
 		}
 	}
 
@@ -93,11 +91,10 @@ public class ElementUtil {
 			boolean flag = getElement(locator).isDisplayed();
 			System.out.println("element is displayed: " + locator);
 			return flag;
-		} catch (NoSuchElementException e) {
+		} catch (NoSuchElementException | ElementException e) {
 			System.out.println("element with locator : " + locator + " is not displayed");
 			return false;
 		}
-
 	}
 
 	public boolean isElementDisplayed(By locator) {
@@ -567,14 +564,4 @@ public class ElementUtil {
 			throw new RuntimeException("page is not loaded");
 		}
 	}
-
-	// click
-	// isPageLoaded -- new page
-	
-	public void naveenClick() {
-		System.out.println("click");
-	}
-	
-	
-
 }
